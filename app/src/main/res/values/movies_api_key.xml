@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- To use this app you will need to have api key to access information about the movies.
+    Do that by following this link https://www.themoviedb.org/account/signup to create an account
+    and then generate the api key.-->
+    <string name="movies_api_key">PUT YOUR API KEY HERE</string>
+</resources>
