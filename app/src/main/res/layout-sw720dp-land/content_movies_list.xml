@@ -9,18 +9,17 @@
     android:showDividers="middle"
     tools:context=".activities.ListMoviesActivity">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/movies_list_recycler"
+    <fragment
+        android:id="@+id/movies_list_fragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        app:layoutManager="GridLayoutManager"
-        tools:context=".activities.ListMoviesActivity"
-        tools:listitem="@layout/movies_list_content" />
+        android:layout_weight=".5"
+        android:name="com.udacity.popularmovies.fragments.ListMoviesFragment"
+        tools:context=".fragments.ListMoviesFragment"
+        tools:layout="@layout/fragment_movies_list" />
 
-    <fragment
-        android:id="@+id/movies_detail_fragment"
+    <FrameLayout
+        android:id="@+id/movies_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
