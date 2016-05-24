@@ -8,5 +8,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="GridLayoutManager"
-    tools:context=".activities.ListMoviesActivity"
+    tools:context=".fragments.ListMoviesFragment"
     tools:listitem="@layout/movies_list_content"/>

@@ -1,15 +1,40 @@
 package com.udacity.popularmovies.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.udacity.popularmovies.R;
+import com.udacity.popularmovies.fragments.ListMoviesFragment;
 
-public class ListMoviesActivity extends AppCompatActivity {
+import butterknife.BindView;
+
+public class ListMoviesActivity extends BaseActivity {
+
+    @Nullable
+    @BindView(R.id.movies_detail_container)
+    protected View detailContainer;
+
+    private boolean twoPaneMode;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies_list);
+    protected int getLayoutId() {
+        return R.layout.activity_movies_list;
+    }
+
+    @Override
+    protected void initializeLayout(Bundle savedInstanceState) {
+
+        if (detailContainer != null) {
+            twoPaneMode = true;
+
+            if (savedInstanceState == null)
+            {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.movies_detail_container, new ListMoviesFragment())
+                        .commit();
+            }
+        }else
+            twoPaneMode = false;
     }
 }
