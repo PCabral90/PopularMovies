@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,16 +19,29 @@
             app:popupTheme="@style/PopularMoviesTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <fragment
-            android:id="@+id/fragment_listing"
-            android:name="com.udacity.popularmovies.ui.fragments.ListMoviesFragment"
-            android:layout_width="match_parent"
+            android:id="@+id/movies_list_fragment"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            tools:layout="@layout/fragment_movies_list"/>
-    </FrameLayout>
+            android:layout_weight=".5"
+            android:name="com.udacity.popularmovies.ui.fragments.ListMoviesFragment"
+            tools:context=".ui.fragments.ListMoviesFragment"
+            tools:layout="@layout/fragment_movies_list" />
+
+        <FrameLayout
+            android:id="@+id/movies_detail_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:context=".ui.fragments.DetailMoviesFragment"
+            tools:layout="@layout/fragment_movies_detail" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
+
+

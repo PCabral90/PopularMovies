@@ -1,4 +1,4 @@
-package com.udacity.popularmovies.activities;
+package com.udacity.popularmovies.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

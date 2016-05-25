@@ -1,4 +1,4 @@
-package com.udacity.popularmovies.adapters;
+package com.udacity.popularmovies.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

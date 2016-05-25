@@ -1,11 +1,11 @@
-package com.udacity.popularmovies.fragments;
+package com.udacity.popularmovies.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.adapters.MoviesAdapter;
+import com.udacity.popularmovies.ui.adapters.MoviesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,6 @@ public class ListMoviesFragment extends BaseFragment {
 
         int numberCol = 2;
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberCol));
         recyclerView.setAdapter(new MoviesAdapter(movies));
     }
 

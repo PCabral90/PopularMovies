@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movies_list_recycler"
-    android:name=".fragments.MoviesDetailFragment"
+    android:name=".fragments.ListMoviesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="GridLayoutManager"
-    tools:context=".fragments.ListMoviesFragment"
+    app:spanCount="@integer/movies_list_number_cols"
+    tools:context=".ui.fragments.ListMoviesFragment"
     tools:listitem="@layout/movies_list_content"/>

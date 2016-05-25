@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/PopularMoviesTheme">
         <activity
-            android:name=".activities.ListMoviesActivity"
+            android:name=".ui.activities.ListMoviesActivity"
             android:theme="@style/PopularMoviesTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

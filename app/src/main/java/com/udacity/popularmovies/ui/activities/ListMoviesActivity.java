@@ -1,11 +1,11 @@
-package com.udacity.popularmovies.activities;
+package com.udacity.popularmovies.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.fragments.ListMoviesFragment;
+import com.udacity.popularmovies.ui.fragments.ListMoviesFragment;
 
 import butterknife.BindView;
 

@@ -1,4 +1,4 @@
-package com.udacity.popularmovies.fragments;
+package com.udacity.popularmovies.ui.fragments;
 
 import android.os.Bundle;
 
