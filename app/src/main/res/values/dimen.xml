@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Browse Movies -->
+    <item name="movie_list_content_image_aspect_ratio" format="float" type="dimen">1.33</item>
+
 </resources>

@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <ImageView
+    android:orientation="vertical">
+
+    <com.udacity.popularmovies.ui.custom.AspectLockedImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:src="@mipmap/ic_launcher"
-        tools:layout_width="300dp"
+        android:src="@drawable/movie_image_place_holder"
         android:scaleType="centerCrop"
-        tools:src="@drawable/movie_image_place_holder"/>
+        app:imageAspectRatio="0.675"
+        tools:layout_width="300dp"
+        tools:src="@drawable/movie_image_place_holder" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center" />
 </LinearLayout>

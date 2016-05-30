@@ -31,7 +31,6 @@ public class ListMoviesFragment extends BaseFragment {
     protected void initializeView(Bundle savedInstanceState) {
         setDummyString();
 
-        int numberCol = 2;
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new MoviesAdapter(movies));
     }
@@ -44,5 +43,8 @@ public class ListMoviesFragment extends BaseFragment {
         movies.add("E");
         movies.add("F");
         movies.add("G");
+        movies.add("H");
+        movies.add("I");
+        movies.add("J");
     }
 }
