@@ -12,7 +12,7 @@
         android:theme="@style/PopularMoviesTheme">
         <activity
             android:name=".ui.activities.ListMoviesActivity"
-            android:theme="@style/PopularMoviesTheme">
+            android:theme="@style/PopularMoviesTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

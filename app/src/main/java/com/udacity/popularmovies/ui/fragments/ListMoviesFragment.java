@@ -1,8 +1,13 @@
 package com.udacity.popularmovies.ui.fragments;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.data.Movie;
@@ -19,7 +24,7 @@ import butterknife.BindView;
 public class ListMoviesFragment extends BaseFragment {
 
     @BindView(R.id.movies_list_recycler)
-    protected RecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     private List<Movie> movies = new ArrayList<>(20);
 
@@ -30,10 +35,52 @@ public class ListMoviesFragment extends BaseFragment {
 
     @Override
     protected void initializeView(Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
         setDummyString();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new MoviesAdapter(movies));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sort_movies:
+                showSortContextMenu();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showSortContextMenu() {
+        View menuSortView = getActivity().findViewById(R.id.menu_sort_movies);
+        PopupMenu popup = new PopupMenu(getContext(), menuSortView);
+        popup.getMenuInflater().inflate(R.menu.sort_actions, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_popular:
+                        getActivity().setTitle("Popular Movies");
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Not implemented", Snackbar.LENGTH_LONG).show();
+                        return true;
+                    case R.id.action_top_rated:
+                        getActivity().setTitle("Top Rated");
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Not implemented", Snackbar.LENGTH_LONG).show();
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        popup.show();
     }
 
     private void setDummyString() {
@@ -47,4 +94,6 @@ public class ListMoviesFragment extends BaseFragment {
         movies.add(new Movie("wx9vNunt4Q9iUbmwWBtzUM5g0SU.jpg"));
         movies.add(new Movie("vdK1f9kpY5QEwrAiXs9R7PlerNC.jpg"));
     }
+
+
 }

@@ -2,6 +2,8 @@ package com.udacity.popularmovies.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.udacity.popularmovies.R;
@@ -28,13 +30,12 @@ public class ListMoviesActivity extends BaseActivity {
         if (detailContainer != null) {
             twoPaneMode = true;
 
-            if (savedInstanceState == null)
-            {
+            if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.movies_detail_container, new ListMoviesFragment())
                         .commit();
             }
-        }else
+        } else
             twoPaneMode = false;
     }
 }
