@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="movies_list_number_cols">3</integer>
+    <integer name="movies_list_number_cols">2</integer>
 </resources>

@@ -8,9 +8,9 @@ import android.os.Parcelable;
  */
 public class Movie implements Parcelable{
 
-    private final String movieId;
-    private final String title;
-    private final String poster;
+    private String movieId;
+    private String title;
+    private String poster;
 
     public Movie(String movieId, String title, String poster){
         this.movieId = movieId;
@@ -22,15 +22,28 @@ public class Movie implements Parcelable{
         return movieId;
     }
 
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPoster() {
         return poster;
     }
 
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
 
+
+    //Parcelable Implementation
     @Override
     public int describeContents() {
         return 0;
