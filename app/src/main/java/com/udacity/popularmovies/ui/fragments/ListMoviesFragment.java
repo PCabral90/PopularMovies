@@ -37,15 +37,15 @@ public class ListMoviesFragment extends BaseFragment {
     }
 
     private void setDummyString() {
-        movies.add(new Movie("1", "A", "nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
-        movies.add(new Movie("2", "B", "inVq3FRqcYIRl2la8iZikYYxFNR.jpg"));
-        movies.add(new Movie("3", "C", "zSouWWrySXshPCT4t3UKCQGayyo.jpg"));
-        movies.add(new Movie("4", "D", "5N20rQURev5CNDcMjHVUZhpoCNC.jpg"));
-        movies.add(new Movie("5", "E", "sM33SANp9z6rXW8Itn7NnG1GOEs.jpg"));
-        movies.add(new Movie("6", "F", "uPqAW07bGoljf3cmT5gecdOvVol.jpg"));
-        movies.add(new Movie("7", "G", "s7OVVDszWUw79clca0durAIa6mw.jpg"));
-        movies.add(new Movie("8", "H", "wx9vNunt4Q9iUbmwWBtzUM5g0SU.jpg"));
-        movies.add(new Movie("9", "I", "yHhBfL2msdFWwLpjGSgPJpVmxQN.jpg"));
-        movies.add(new Movie("10", "J", "vdK1f9kpY5QEwrAiXs9R7PlerNC.jpg"));
+        movies.add(new Movie("nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
+        movies.add(new Movie("inVq3FRqcYIRl2la8iZikYYxFNR.jpg"));
+        movies.add(new Movie("zSouWWrySXshPCT4t3UKCQGayyo.jpg"));
+        movies.add(new Movie("5N20rQURev5CNDcMjHVUZhpoCNC.jpg"));
+        movies.add(new Movie("sM33SANp9z6rXW8Itn7NnG1GOEs.jpg"));
+        movies.add(new Movie("uPqAW07bGoljf3cmT5gecdOvVol.jpg"));
+        movies.add(new Movie("s7OVVDszWUw79clca0durAIa6mw.jpg"));
+        movies.add(new Movie("wx9vNunt4Q9iUbmwWBtzUM5g0SU.jpg"));
+        movies.add(new Movie("yHhBfL2msdFWwLpjGSgPJpVmxQN.jpg"));
+        movies.add(new Movie("vdK1f9kpY5QEwrAiXs9R7PlerNC.jpg"));
     }
 }
