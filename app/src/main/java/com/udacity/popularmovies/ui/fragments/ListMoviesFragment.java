@@ -45,7 +45,6 @@ public class ListMoviesFragment extends BaseFragment {
         movies.add(new Movie("uPqAW07bGoljf3cmT5gecdOvVol.jpg"));
         movies.add(new Movie("s7OVVDszWUw79clca0durAIa6mw.jpg"));
         movies.add(new Movie("wx9vNunt4Q9iUbmwWBtzUM5g0SU.jpg"));
-        movies.add(new Movie("yHhBfL2msdFWwLpjGSgPJpVmxQN.jpg"));
         movies.add(new Movie("vdK1f9kpY5QEwrAiXs9R7PlerNC.jpg"));
     }
 }

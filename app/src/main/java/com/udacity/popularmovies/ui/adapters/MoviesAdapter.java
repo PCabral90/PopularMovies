@@ -61,9 +61,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
            Glide.with(context)
                    .load("http://image.tmdb.org/t/p/w342/" + movie.getPoster())
                    .placeholder(R.mipmap.ic_launcher)
+                   .error(R.mipmap.ic_error_outline_white_48dp)
                    .into(poster);
-
-
         }
     }
 }
