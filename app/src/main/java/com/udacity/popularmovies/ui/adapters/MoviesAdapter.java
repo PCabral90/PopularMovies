@@ -13,6 +13,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.data.Movie;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +24,45 @@ import butterknife.ButterKnife;
  * Created by pedro on 24-May-16.
  */
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
+
+    public class MovieEventArgs{
+
+        private final Movie movie;
+
+        public MovieEventArgs(@NonNull  Movie movie){
+
+            this.movie = movie;
+        }
+
+        public Movie getMovie() {
+            return movie;
+        }
+    }
+
+    protected final class MoviesViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.movie_poster)
+        ImageView poster;
+
+        public MoviesViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(@NonNull final Movie movie) {
+            poster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new MovieEventArgs(movie));
+                }
+            });
+
+            Glide.with(context)
+                    .load("http://image.tmdb.org/t/p/w342/" + movie.getPoster())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(poster);
+        }
+    }
 
     private List<Movie> movies;
     private Context context;
@@ -45,23 +86,5 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     @Override
     public int getItemCount() {
         return movies.size();
-    }
-
-    protected final class MoviesViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.movie_poster)
-        ImageView poster;
-
-        public MoviesViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-
-        public void bind(@NonNull final Movie movie) {
-           Glide.with(context)
-                   .load("http://image.tmdb.org/t/p/w342/" + movie.getPoster())
-                   .placeholder(R.mipmap.ic_launcher)
-                   .into(poster);
-        }
     }
 }

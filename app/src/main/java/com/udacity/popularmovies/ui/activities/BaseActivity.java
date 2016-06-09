@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.udacity.popularmovies.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
