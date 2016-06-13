@@ -15,6 +15,7 @@ import com.udacity.popularmovies.data.Movie;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,11 +26,12 @@ import butterknife.ButterKnife;
  */
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
-    public class MovieEventArgs{
+
+    public class MovieEventArgs {
 
         private final Movie movie;
 
-        public MovieEventArgs(@NonNull  Movie movie){
+        public MovieEventArgs(@NonNull Movie movie) {
 
             this.movie = movie;
         }
@@ -64,11 +66,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         }
     }
 
-    private List<Movie> movies;
+    private List<Movie> movies = new ArrayList<>();
     private Context context;
 
+    public MoviesAdapter() {}
+
     public MoviesAdapter(@NonNull List<Movie> movies) {
-        this.movies = movies;
+        addMovies(movies);
+    }
+
+    public void addMovies(@NonNull List<Movie> movies) {
+        this.movies.addAll(movies);
     }
 
     @Override

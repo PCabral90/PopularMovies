@@ -14,6 +14,7 @@ import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.data.Movie;
 import com.udacity.popularmovies.data.api.MovieApi;
 import com.udacity.popularmovies.data.response.MoviesResponse;
+import com.udacity.popularmovies.ui.adapters.EndlessRecyclerViewScrollListener;
 import com.udacity.popularmovies.ui.adapters.MoviesAdapter;
 
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class ListMoviesFragment extends BaseFragment {
 
     @BindView(R.id.movies_list_recycler)
     RecyclerView recyclerView;
+    private MoviesAdapter moviesAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -73,7 +75,7 @@ public class ListMoviesFragment extends BaseFragment {
             }
         }).build();
 
-        MovieApi movieApi = new Retrofit.Builder()
+        final MovieApi movieApi = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(MovieApi.ENDPOINT)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -81,34 +83,23 @@ public class ListMoviesFragment extends BaseFragment {
                 .build()
                 .create(MovieApi.class);
 
-        movieApi.getPopularMovies(1)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MoviesResponse>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
+        moviesAdapter = new MoviesAdapter();
 
-                    @Override
-                    public void onError(Throwable e) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(moviesAdapter);
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(recyclerView.getLayoutManager()) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                getMoviesFromApi(movieApi,page);
+            }
+        });
 
-                    }
+        getMoviesFromApi(movieApi,1);
+    }
 
-                    @Override
-                    public void onNext(MoviesResponse moviesResponse) {
-                        List<Movie> movies = new ArrayList<>(moviesResponse.getResults().size());
-
-                        for (MoviesResponse.MovieResult movieResult : moviesResponse.getResults()) {
-                            movies.add(new Movie(movieResult.getPoster_path()));
-                        }
-
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setAdapter(new MoviesAdapter(movies));
-                    }
-                });
-
-        /*movieApi.getPopularMovies(1).enqueue(new Callback<MoviesResponse>() {
+    private void getMoviesFromApi(MovieApi movieApi, int page){
+        movieApi.getPopularMovies(page).enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, retrofit2.Response<MoviesResponse> response) {
                 MoviesResponse movieResponse = response.body();
@@ -119,14 +110,15 @@ public class ListMoviesFragment extends BaseFragment {
                     movies.add(new Movie(movieResult.getPoster_path()));
                 }
 
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setAdapter(new MoviesAdapter(movies));
+                int previousCount = moviesAdapter.getItemCount();
+                moviesAdapter.addMovies(movies);
+                moviesAdapter.notifyItemRangeInserted(previousCount, moviesAdapter.getItemCount());
             }
 
             @Override
             public void onFailure(Call<MoviesResponse> call, Throwable t) {
             }
-        });*/
+        });
     }
 
     @Override
