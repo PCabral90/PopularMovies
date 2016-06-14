@@ -1,6 +1,7 @@
 package com.udacity.popularmovies.ui.activities;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.udacity.popularmovies.R;
 
@@ -12,12 +13,9 @@ public class DetailMoviesActivity extends BaseActivity {
     public static final String EXTRA_MOVIE = "com.udacity.popularmovies.extras.EXTRA_MOVIE";
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_movies_detail;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movies_detail);
     }
 
-    @Override
-    protected void initializeLayout(Bundle savedInstanceState) {
-
-    }
 }

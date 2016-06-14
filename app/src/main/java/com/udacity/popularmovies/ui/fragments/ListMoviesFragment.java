@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.data.Movie;
@@ -32,12 +34,6 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by pedro on 24-May-16.
@@ -48,14 +44,10 @@ public class ListMoviesFragment extends BaseFragment {
     RecyclerView recyclerView;
     private MoviesAdapter moviesAdapter;
 
+    @Nullable
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_movies_list;
-    }
-
-    @Override
-    protected void initializeView(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_movies_list, container, false);
     }
 
     @Override

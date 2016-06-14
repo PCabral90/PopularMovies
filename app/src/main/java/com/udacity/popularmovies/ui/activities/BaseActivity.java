@@ -1,13 +1,13 @@
 package com.udacity.popularmovies.ui.activities;
 
-import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.udacity.popularmovies.R;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,20 +20,30 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.activity_movies_list_toolbar)
     protected Toolbar toolbar;
 
+    @CallSuper
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
         ButterKnife.bind(this);
-        setToolbar();
-        initializeLayout(savedInstanceState);
+        setupToolbar();
     }
 
-    protected void setToolbar() {
+    @Nullable
+    public final Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    private void setupToolbar() {
+
+        if (toolbar == null)
+            return;
+
+        ViewCompat.setElevation(toolbar, getResources().getDimension(R.dimen.toolbar_elevation));
         setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
     }
-
-    protected abstract int getLayoutId();
-
-    protected abstract void initializeLayout(Bundle savedInstanceState);
 }

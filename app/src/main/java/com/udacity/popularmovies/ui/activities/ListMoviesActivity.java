@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.data.Movie;
@@ -29,12 +26,9 @@ public class ListMoviesActivity extends BaseActivity {
     private boolean twoPaneMode;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_movies_list;
-    }
-
-    @Override
-    protected void initializeLayout(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movies_list);
 
         if (detailContainer != null) {
             twoPaneMode = true;
