@@ -6,13 +6,24 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/movie_poster"
         android:contentDescription="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
+        tools:src="@drawable/movie_image_place_holder"/>
+    -->
+
+    <com.udacity.popularmovies.ui.widget.AspectRatioImageView
+        android:id="@+id/movie_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:aspectRatioEnabled="true"
+        app:aspectRatio="1.33"
         tools:src="@drawable/movie_image_place_holder"/>
 
 </LinearLayout>
