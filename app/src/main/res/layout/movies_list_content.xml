@@ -14,6 +14,6 @@
         android:scaleType="fitXY"
         app:aspectRatio="1.33"
         app:aspectRatioEnabled="true"
-        tools:src="@drawable/movie_image_place_holder" />
+        tools:src="@drawable/poster_movie_image_place_holder" />
 
 </LinearLayout>

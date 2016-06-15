@@ -4,8 +4,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!-- Browse Movies -->
+    <dimen name="toolbar_elevation">8dp</dimen>
+
+    <!-- List Movies Screen-->
     <item name="movie_list_content_image_aspect_ratio" format="float" type="dimen">1.33</item>
 
-    <dimen name="toolbar_elevation">8dp</dimen>
+    <!-- Details Screen -->
+    <dimen name="backdrop_image_height">190dp</dimen>
+
 </resources>
