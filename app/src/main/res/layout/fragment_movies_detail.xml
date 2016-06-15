@@ -8,6 +8,17 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <ImageView
+        android:id="@+id/movie_backdrop_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/backdrop_image_height"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:src="@drawable/backdrop_movie_image_place_holder"
+        tools:src="@drawable/backdrop_movie_image_place_holder"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,10 +26,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-
         android:orientation="horizontal">
 
         <com.udacity.popularmovies.ui.widget.AspectRatioImageView
+            android:id="@+id/movie_poster_image"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:contentDescription="@null"
@@ -36,6 +47,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Large"
@@ -43,12 +55,14 @@
                 tools:text="Movie Title" />
 
             <TextView
+                android:id="@+id/movie_release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 tools:text="Release Date" />
 
             <TextView
+                android:id="@+id/movie_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -61,7 +75,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
-        android:background="@android:color/black" />
+        android:background="@color/colorAccent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,9 +87,9 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/movie_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/plot_movie_text_placeholder"
-            tools:text="@string/plot_movie_text_placeholder" />
+            tools:text="@string/movie_overview_placeholder" />
     </LinearLayout>
 </LinearLayout>
