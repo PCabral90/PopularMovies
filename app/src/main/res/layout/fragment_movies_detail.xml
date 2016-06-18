@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/default_space_small">
 
     <ImageView
         android:id="@+id/movie_backdrop_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/backdrop_image_height"
-        android:layout_marginBottom="16dp"
+        android:layout_height="@dimen/movie_backdrop_image_height"
+        android:layout_marginBottom="@dimen/default_space_small"
         android:contentDescription="@null"
         android:scaleType="fitXY"
         android:visibility="gone"
@@ -22,28 +22,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_margin="@dimen/default_space_small"
         android:orientation="horizontal">
 
         <com.udacity.popularmovies.ui.widget.AspectRatioImageView
             android:id="@+id/movie_poster_image"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_width="@dimen/movie_detail_poster_width"
+            android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:scaleType="fitXY"
             android:src="@drawable/poster_movie_image_place_holder"
-            app:aspectRatio="0.657"
-            app:aspectRatioEnabled="true"
-            app:dominantMeasurement="height" />
+            app:aspectRatio="1.33"
+            app:aspectRatioEnabled="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="@dimen/default_space_normal"
+            android:layout_marginStart="@dimen/default_space_normal"
             android:orientation="vertical">
 
             <TextView
@@ -65,7 +61,7 @@
                 android:id="@+id/movie_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
                 tools:text="Rating" />
         </LinearLayout>
     </LinearLayout>
@@ -73,17 +69,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="@dimen/default_space_small"
+        android:layout_marginTop="@dimen/default_space_small"
         android:background="@color/colorAccent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_margin="@dimen/default_space_small"
         android:orientation="vertical">
 
         <TextView

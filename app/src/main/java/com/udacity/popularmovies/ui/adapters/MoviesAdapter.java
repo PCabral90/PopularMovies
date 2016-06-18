@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.data.Movie;
+import com.udacity.popularmovies.data.model.Movie;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -76,8 +75,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     }
 
     public void addMovies(@NonNull List<Movie> movies) {
+        int previousCount = getItemCount();
         this.movies.addAll(movies);
+        notifyItemRangeInserted(previousCount, getItemCount());
     }
+
+    public void clear(){
+        int count = getItemCount();
+        movies.clear();
+        notifyItemRangeRemoved(0, count);
+    }
+
 
     @Override
     public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

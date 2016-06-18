@@ -1,21 +1,24 @@
 package com.udacity.popularmovies.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.udacity.popularmovies.PopularMoviesApp;
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.data.Movie;
+import com.udacity.popularmovies.data.model.Movie;
 import com.udacity.popularmovies.ui.adapters.MoviesAdapter;
-import com.udacity.popularmovies.ui.fragments.ListMoviesFragment;
+import com.udacity.popularmovies.ui.fragments.DetailMoviesFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import retrofit2.Retrofit;
 
 public class ListMoviesActivity extends BaseActivity {
 
@@ -32,12 +35,7 @@ public class ListMoviesActivity extends BaseActivity {
 
         if (detailContainer != null) {
             twoPaneMode = true;
-
-            if (savedInstanceState == null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.movies_detail_container, new ListMoviesFragment())
-                        .commit();
-            }
+            showMovieDetailFragment(new Movie());
         } else
             twoPaneMode = false;
     }
@@ -59,9 +57,15 @@ public class ListMoviesActivity extends BaseActivity {
         NavigateToDetailMovie(movieArgs.getMovie());
     }
 
-    private void NavigateToDetailMovie(@NonNull Movie movie){
-        Intent detailMovieIntent = new Intent(this, DetailMoviesActivity.class);
-        detailMovieIntent.putExtra(DetailMoviesActivity.EXTRA_MOVIE, movie);
-        startActivity(detailMovieIntent);
+    private void NavigateToDetailMovie(@NonNull Movie movie) {
+        if (twoPaneMode) {
+            showMovieDetailFragment(movie);
+        } else {
+            DetailMoviesActivity.StartActivity(this, movie);
+        }
+    }
+
+    private void showMovieDetailFragment(Movie movie) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.movies_detail_container, DetailMoviesFragment.newInstance(movie, true)).commit();
     }
 }

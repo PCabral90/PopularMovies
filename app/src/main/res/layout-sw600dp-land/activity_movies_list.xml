@@ -28,7 +28,7 @@
             android:id="@+id/movies_list_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:name="com.udacity.popularmovies.ui.fragments.ListMoviesFragment"
             tools:context=".ui.fragments.ListMoviesFragment"
             tools:layout="@layout/fragment_movies_list" />

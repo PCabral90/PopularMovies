@@ -17,8 +17,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @BindView(R.id.activity_movies_list_toolbar)
-    protected Toolbar toolbar;
+    @BindView(R.id.activity_movies_list_toolbar) Toolbar toolbar;
 
     @CallSuper
     @Override
@@ -33,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return toolbar;
     }
 
-    private void setupToolbar() {
+    protected void setupToolbar() {
 
         if (toolbar == null)
             return;

@@ -2,6 +2,7 @@ package com.udacity.popularmovies.data.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +42,18 @@ public class MoviesResponse {
         @SerializedName("poster_path")
         private String poster_path;
 
+        @SerializedName("original_title")
+        private String original_title;
+
+        @SerializedName("vote_average")
+        private double vote_average;
+
+        @SerializedName("release_date")
+        private String release_date;
+
+        @SerializedName("overview")
+        private String overview;
+
         public String getId() {
             return id;
         }
@@ -51,6 +64,22 @@ public class MoviesResponse {
 
         public String getPoster_path() {
             return poster_path;
+        }
+
+        public String getOriginal_title() {
+            return original_title;
+        }
+
+        public double getVote_average() {
+            return vote_average;
+        }
+
+        public String getRelease_date() {
+            return release_date;
+        }
+
+        public String getOverview() {
+            return overview;
         }
     }
 }

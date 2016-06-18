@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/movie_backdrop_image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/backdrop_image_height"
+                android:layout_height="@dimen/movie_backdrop_image_height"
                 android:contentDescription="@null"
                 android:scaleType="fitXY"
                 android:fitsSystemWindows="true"
@@ -44,9 +44,8 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <fragment
+        <FrameLayout
             android:id="@+id/movie_detail_container"
-            android:name="com.udacity.popularmovies.ui.fragments.DetailMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_movies_detail"/>
