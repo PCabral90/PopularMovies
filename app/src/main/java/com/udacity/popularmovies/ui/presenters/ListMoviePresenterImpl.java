@@ -1,5 +1,7 @@
 package com.udacity.popularmovies.ui.presenters;
 
+import android.support.annotation.NonNull;
+
 import com.udacity.popularmovies.data.api.MovieApi;
 import com.udacity.popularmovies.data.model.Movie;
 import com.udacity.popularmovies.data.response.MoviesResponse;
@@ -19,29 +21,35 @@ import retrofit2.Response;
  */
 public class ListMoviePresenterImpl {
 
-    private final ListMovieView view;
     private final MovieApi movieApi;
     private final MovieResponseCallback movieResponseCallback;
 
+    private ListMovieView view;
+
     @Inject
-    public ListMoviePresenterImpl(ListMovieView view, MovieApi movieApi){
-
-        this.view = view;
+    public ListMoviePresenterImpl(MovieApi movieApi) {
         this.movieApi = movieApi;
-
         movieResponseCallback = new MovieResponseCallback();
     }
 
-    public void loadPopularMoviesByPage(int page){
+    public void attachView(@NonNull ListMovieView view) {
+        this.view = view;
+    }
+
+    public void dettachView() {
+        this.view = null;
+    }
+
+    public void loadPopularMoviesByPage(int page) {
         movieApi.getPopularMovies(page).enqueue(movieResponseCallback);
     }
 
-    public void loadTopRatedMoviesByPage(int page){
+    public void loadTopRatedMoviesByPage(int page) {
         movieApi.getTopRated(page).enqueue(movieResponseCallback);
     }
 
 
-    private class MovieResponseCallback implements Callback<MoviesResponse>{
+    private class MovieResponseCallback implements Callback<MoviesResponse> {
 
         @Override
         public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
@@ -60,12 +68,14 @@ public class ListMoviePresenterImpl {
                 ));
             }
 
-            view.onMoviesLoaded(movies);
+            if (view != null)
+                view.onMoviesLoaded(movies);
         }
 
         @Override
         public void onFailure(Call<MoviesResponse> call, Throwable t) {
-            view.onMoviesLoadedError(t);
+            if (view != null)
+                view.onMoviesLoadedError(t);
         }
     }
 }

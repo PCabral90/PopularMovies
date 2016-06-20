@@ -14,15 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.udacity.popularmovies.PopularMoviesAppModule;
+import com.udacity.popularmovies.PopularMoviesApp;
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.data.MovieApiModule;
-import com.udacity.popularmovies.data.api.MovieApi;
 import com.udacity.popularmovies.data.model.Movie;
 import com.udacity.popularmovies.ui.adapters.EndlessRecyclerViewScrollListener;
 import com.udacity.popularmovies.ui.adapters.MoviesAdapter;
-import com.udacity.popularmovies.ui.components.DaggerListMovieComponent;
-import com.udacity.popularmovies.ui.components.ListMovieModule;
 import com.udacity.popularmovies.ui.presenters.ListMoviePresenterImpl;
 
 import java.util.List;
@@ -35,6 +31,7 @@ import retrofit2.Retrofit;
 /**
  * Created by pedro on 24-May-16.
  */
+
 public class ListMoviesFragment extends BaseFragment implements ListMovieView {
 
     private static final String SORT_BY_KEY = "sort_by_key";
@@ -57,15 +54,9 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        DaggerListMovieComponent.builder()
-                .popularMoviesAppModule(new PopularMoviesAppModule(getActivity().getApplication()))
-                .movieApiModule(new MovieApiModule(MovieApi.ENDPOINT))
-                .listMovieModule(new ListMovieModule(this))
-                .build()
-                .inject(this);
+        PopularMoviesApp.getPopularMovieApp(getContext()).getPopularMoviesComponent().inject(this);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         sortBy = SortMoviesBy.getSortMoviesByString(preferences.getString(SORT_BY_KEY, SortMoviesBy.MostPopular.toString()));
     }
 
@@ -78,6 +69,8 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        presenter.attachView(this);
+
         moviesAdapter = new MoviesAdapter();
         recyclerView.setAdapter(moviesAdapter);
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(recyclerView.getLayoutManager()) {
@@ -88,6 +81,12 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
         });
 
         loadMovies(1, sortBy);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.dettachView();
     }
 
     @Override
@@ -103,10 +102,12 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
     private void loadMovies(int page, SortMoviesBy sortBy) {
         switch (sortBy) {
             case TopRated:
+                getActivity().setTitle(R.string.sort_action_top_rated);
                 presenter.loadTopRatedMoviesByPage(page);
                 break;
             case MostPopular:
             default:
+                getActivity().setTitle(R.string.sort_action_popular_movies);
                 presenter.loadPopularMoviesByPage(page);
                 break;
         }
@@ -137,10 +138,10 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_popular:
-                        sortMovies(R.string.sort_action_popular_movies, SortMoviesBy.MostPopular);
+                        sortMovies( SortMoviesBy.MostPopular);
                         return true;
                     case R.id.action_top_rated:
-                        sortMovies(R.string.sort_action_top_rated, SortMoviesBy.TopRated);
+                        sortMovies(SortMoviesBy.TopRated);
                         return true;
                 }
                 return false;
@@ -150,13 +151,12 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
         popup.show();
     }
 
-    private void sortMovies(int titleId, SortMoviesBy sortBy) {
-        getActivity().setTitle(titleId);
-
+    private void sortMovies(SortMoviesBy sortBy) {
         this.sortBy = sortBy;
-        preferences.edit().putString(SORT_BY_KEY, sortBy.toString()).apply();
 
+        preferences.edit().putString(SORT_BY_KEY, sortBy.toString()).apply();
         moviesAdapter.clear();
+
         loadMovies(1, sortBy);
     }
 
