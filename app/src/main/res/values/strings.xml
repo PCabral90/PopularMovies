@@ -2,4 +2,9 @@
     <string name="app_name">Popular Movies</string>
 
     <string name="movie_rating">%1$s/%2$s</string>
+
+    <string name="sort_action_popular_movies">Popular Movies</string>
+    <string name="sort_action_top_rated">Top Rated</string>
+
+    <string name="error_loading_movies">Error while loading movies</string>
 </resources>

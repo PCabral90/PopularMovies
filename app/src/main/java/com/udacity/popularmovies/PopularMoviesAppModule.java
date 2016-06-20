@@ -10,12 +10,12 @@ import dagger.Provides;
  * Created by pedro on 17-Jun-16.
  */
 @Module
-public class ApplicationModule {
+public class PopularMoviesAppModule {
 
 
     private Application app;
 
-    public ApplicationModule(Application app) {
+    public PopularMoviesAppModule(Application app) {
         this.app = app;
     }
 

@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_popular"
-        android:title="Popular Movies" />
+        android:title="@string/sort_action_popular_movies" />
     <item
         android:id="@+id/action_top_rated"
-        android:title="Top Rated" />
+        android:title="@string/sort_action_top_rated" />
 </menu>

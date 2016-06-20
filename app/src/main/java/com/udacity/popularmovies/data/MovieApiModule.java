@@ -24,11 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by pedro on 17-Jun-16.
  */
 @Module
-public class NetworkModule {
+public class MovieApiModule {
 
     private String baseUrl;
 
-    public NetworkModule(String baseUrl) {
+    public MovieApiModule(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
@@ -70,5 +70,11 @@ public class NetworkModule {
                 .addCallAdapterFactory(rxJava)
                 .addConverterFactory(gson)
                 .build();
+    }
+
+    @Singleton
+    @Provides
+    public MovieApi providesMovieApi(Retrofit retrofit) {
+        return retrofit.create(MovieApi.class);
     }
 }

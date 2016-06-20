@@ -1,6 +1,8 @@
 package com.udacity.popularmovies.ui.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -12,49 +14,59 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.udacity.popularmovies.PopularMoviesApp;
+import com.udacity.popularmovies.PopularMoviesAppModule;
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.data.model.Movie;
+import com.udacity.popularmovies.data.MovieApiModule;
 import com.udacity.popularmovies.data.api.MovieApi;
-import com.udacity.popularmovies.data.response.MoviesResponse;
+import com.udacity.popularmovies.data.model.Movie;
 import com.udacity.popularmovies.ui.adapters.EndlessRecyclerViewScrollListener;
 import com.udacity.popularmovies.ui.adapters.MoviesAdapter;
+import com.udacity.popularmovies.ui.components.DaggerListMovieComponent;
+import com.udacity.popularmovies.ui.components.ListMovieModule;
+import com.udacity.popularmovies.ui.presenters.ListMoviePresenterImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 
 /**
  * Created by pedro on 24-May-16.
  */
-public class ListMoviesFragment extends BaseFragment implements Callback<MoviesResponse> {
+public class ListMoviesFragment extends BaseFragment implements ListMovieView {
+
+    private static final String SORT_BY_KEY = "sort_by_key";
 
     @Inject
     Retrofit retrofit;
+
+    @Inject
+    ListMoviePresenterImpl presenter;
 
     @BindView(R.id.movies_list_recycler)
     RecyclerView recyclerView;
 
     private MoviesAdapter moviesAdapter;
-    private MovieApi movieApi;
-
     private SortMoviesBy sortBy;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        PopularMoviesApp.getPopularMovieApp(getContext()).getActivityComponent().inject(this);
+        DaggerListMovieComponent.builder()
+                .popularMoviesAppModule(new PopularMoviesAppModule(getActivity().getApplication()))
+                .movieApiModule(new MovieApiModule(MovieApi.ENDPOINT))
+                .listMovieModule(new ListMovieModule(this))
+                .build()
+                .inject(this);
 
-        movieApi = retrofit.create(MovieApi.class);
-        sortBy = SortMoviesBy.MostPopular;
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        sortBy = SortMoviesBy.getSortMoviesByString(preferences.getString(SORT_BY_KEY, SortMoviesBy.MostPopular.toString()));
     }
 
     @Override
@@ -71,18 +83,33 @@ public class ListMoviesFragment extends BaseFragment implements Callback<MoviesR
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(recyclerView.getLayoutManager()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getMoviesFromApi(page, sortBy);
+                loadMovies(page, sortBy);
             }
         });
 
-        getMoviesFromApi(1, sortBy);
+        loadMovies(1, sortBy);
     }
 
-    private void getMoviesFromApi(int page, SortMoviesBy sortby) {
-        if (sortby == SortMoviesBy.MostPopular)
-            movieApi.getPopularMovies(page).enqueue(this);
-        else
-            movieApi.getTopRated(page).enqueue(this);
+    @Override
+    public void onMoviesLoaded(List<Movie> movies) {
+        moviesAdapter.addMovies(movies);
+    }
+
+    @Override
+    public void onMoviesLoadedError(Throwable t) {
+        Toast.makeText(getContext(), R.string.error_loading_movies, Toast.LENGTH_LONG).show();
+    }
+
+    private void loadMovies(int page, SortMoviesBy sortBy) {
+        switch (sortBy) {
+            case TopRated:
+                presenter.loadTopRatedMoviesByPage(page);
+                break;
+            case MostPopular:
+            default:
+                presenter.loadPopularMoviesByPage(page);
+                break;
+        }
     }
 
     @Override
@@ -110,10 +137,10 @@ public class ListMoviesFragment extends BaseFragment implements Callback<MoviesR
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_popular:
-                        sortMovies("Popular Movie", SortMoviesBy.MostPopular);
+                        sortMovies(R.string.sort_action_popular_movies, SortMoviesBy.MostPopular);
                         return true;
                     case R.id.action_top_rated:
-                        sortMovies("Top Rated", SortMoviesBy.TopRated);
+                        sortMovies(R.string.sort_action_top_rated, SortMoviesBy.TopRated);
                         return true;
                 }
                 return false;
@@ -123,41 +150,23 @@ public class ListMoviesFragment extends BaseFragment implements Callback<MoviesR
         popup.show();
     }
 
-    private void sortMovies(String title, SortMoviesBy sortBy) {
+    private void sortMovies(int titleId, SortMoviesBy sortBy) {
+        getActivity().setTitle(titleId);
+
         this.sortBy = sortBy;
-        getActivity().setTitle(title);
+        preferences.edit().putString(SORT_BY_KEY, sortBy.toString()).apply();
+
         moviesAdapter.clear();
-        getMoviesFromApi(1, sortBy);
+        loadMovies(1, sortBy);
     }
 
-
-    @Override
-    public void onResponse(Call<MoviesResponse> call, retrofit2.Response<MoviesResponse> response) {
-        MoviesResponse movieResponse = response.body();
-
-        List<Movie> movies = new ArrayList<>(response.body().getResults().size());
-
-        for (MoviesResponse.MovieResult movieResult : movieResponse.getResults()) {
-            movies.add(new Movie(
-                    movieResult.getPoster_path(),
-                    movieResult.getBackdrop_path(),
-                    movieResult.getOriginal_title(),
-                    movieResult.getRelease_date(),
-                    movieResult.getVote_average(),
-                    movieResult.getOverview()
-            ));
-        }
-
-        moviesAdapter.addMovies(movies);
-    }
-
-    @Override
-    public void onFailure(Call<MoviesResponse> call, Throwable t) {
-        Toast.makeText(getContext(), "Error while loading movies", Toast.LENGTH_LONG).show();
-    }
 
     public enum SortMoviesBy {
         MostPopular,
-        TopRated
+        TopRated;
+
+        public static SortMoviesBy getSortMoviesByString(String sortBy) {
+            return valueOf(sortBy);
+        }
     }
 }
