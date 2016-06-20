@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.udacity.popularmovies.R;
 
 /**
- * Created by pedro on 14-Jun-16.
+ * Created by https://gist.github.com/JakeWharton/2856179
  */
 public class AspectRatioImageView extends ImageView {
     // NOTE: These must be kept in sync with the AspectRatioImageView attributes in attrs.xml.
