@@ -1,6 +1,7 @@
 package com.udacity.popularmovies;
 
 import com.udacity.popularmovies.data.MoviesApiModule;
+import com.udacity.popularmovies.ui.fragments.DetailMoviesFragment;
 import com.udacity.popularmovies.ui.fragments.ListMoviesFragment;
 
 import javax.inject.Singleton;
@@ -16,4 +17,5 @@ import dagger.Component;
 public interface PopularMoviesAppComponent {
 
     void inject(ListMoviesFragment listMoviesFragment);
+    void inject(DetailMoviesFragment detailMoviesFragment);
 }

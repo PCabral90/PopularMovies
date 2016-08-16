@@ -37,9 +37,6 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
     private static final String SORT_BY_KEY = "sort_by_key";
 
     @Inject
-    Retrofit retrofit;
-
-    @Inject
     ListMoviePresenterImpl presenter;
 
     @BindView(R.id.movies_list_recycler)
@@ -76,7 +73,7 @@ public class ListMoviesFragment extends BaseFragment implements ListMovieView {
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(recyclerView.getLayoutManager()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadMovies(page, sortBy);
+                loadMovies(++page, sortBy);
             }
         });
 

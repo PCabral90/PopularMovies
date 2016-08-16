@@ -34,7 +34,7 @@ public class MoviesResponse {
     public class MovieResult {
 
         @SerializedName("id")
-        private String id;
+        private int id;
 
         @SerializedName("backdrop_path")
         private String backdrop_path;
@@ -54,7 +54,7 @@ public class MoviesResponse {
         @SerializedName("overview")
         private String overview;
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 

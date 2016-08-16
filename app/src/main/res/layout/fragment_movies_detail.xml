@@ -19,52 +19,80 @@
         android:src="@drawable/backdrop_movie_image_place_holder"
         tools:src="@drawable/backdrop_movie_image_place_holder"/>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_space_small"
-        android:orientation="horizontal">
-
-        <com.udacity.popularmovies.ui.widget.AspectRatioImageView
-            android:id="@+id/movie_poster_image"
-            android:layout_width="@dimen/movie_detail_poster_width"
-            android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/poster_movie_image_place_holder"
-            app:aspectRatio="1.33"
-            app:aspectRatioEnabled="true" />
-
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/default_space_normal"
-            android:layout_marginStart="@dimen/default_space_normal"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_space_small"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/movie_title"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Large"
-                android:textStyle="bold"
-                tools:text="Movie Title" />
+                android:clickable="true">
+                <com.udacity.popularmovies.ui.widget.AspectRatioImageView
+                    android:id="@+id/movie_poster_image"
+                    android:layout_width="@dimen/movie_detail_poster_width"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/poster_movie_image_place_holder"
+                    app:aspectRatio="1.33"
+                    app:aspectRatioEnabled="true" />
+                <ImageView
+                    android:id="@+id/movie_trailer_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_play_circle_outline_white_48dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/default_space_normal"
+                android:layout_marginStart="@dimen/default_space_normal"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/movie_release_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-                tools:text="Release Date" />
+                <TextView
+                    android:id="@+id/movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:textStyle="bold"
+                    tools:text="Movie Title" />
 
-            <TextView
-                android:id="@+id/movie_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-                tools:text="Rating" />
+                <TextView
+                    android:id="@+id/movie_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    tools:text="Release Date" />
+
+                <TextView
+                    android:id="@+id/movie_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                    tools:text="Rating" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/movie_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:clickable="true"
+                android:src="@drawable/ic_favorite_white_24dp"
+                app:fabSize="mini"
+                app:useCompatPadding="true"/>
+        </FrameLayout>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
@@ -85,4 +113,11 @@
             android:layout_height="wrap_content"
             tools:text="@string/movie_overview_placeholder" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/default_space_small"
+        android:layout_marginTop="@dimen/default_space_small"
+        android:background="@color/colorAccent" />
+
 </LinearLayout>

@@ -1,9 +1,12 @@
 package com.udacity.popularmovies.data.api;
 
+import com.udacity.popularmovies.data.response.MovieReviewsResponse;
+import com.udacity.popularmovies.data.response.MovieTrailersResponse;
 import com.udacity.popularmovies.data.response.MoviesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -18,5 +21,11 @@ public interface MovieApi {
 
     @GET("movie/top_rated")
     Call<MoviesResponse> getTopRated(@Query("page") int pageNumber);
+
+    @GET("movie/{id}/videos")
+    Call<MovieTrailersResponse> getMovieTrailer(@Path("id") int videoId);
+
+    @GET("movie/{id}/reviews")
+    Call<MovieReviewsResponse> getMovieReviews(@Path("id") int videoId);
 
 }
